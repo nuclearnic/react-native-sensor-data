@@ -2,16 +2,64 @@ import RNDeviceInfo from 'react-native-device-info'
 import NetworkInfo from 'react-native-network-info'
 import RNCalendarEvents from 'react-native-calendar-events'
 
+const apiEndpoint = 'http://0c0f2324.ngrok.io'
+
 export default class ApiService {
   static postDeviceInfo() {
-    console.log('Device info from service')
-    console.log(RNDeviceInfo.getModel())
-    console.log(RNDeviceInfo.getBrand())
+    fetch(apiEndpoint, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        deviceInfo: {
+          apiLevel: RNDeviceInfo.getAPILevel(),
+          applicationName: RNDeviceInfo.getApplicationName(),
+          batterLevel: RNDeviceInfo.getBatteryLevel(),
+          brand: RNDeviceInfo.getBrand(),
+          buildNumber: RNDeviceInfo.getBuildNumber(),
+          buildId: RNDeviceInfo.getBundleId(),
+          carrier: RNDeviceInfo.getCarrier(),
+          deviceCountry: RNDeviceInfo.getDeviceCountry(),
+          deviceId: RNDeviceInfo.getDeviceId(),
+          deviceLocale: RNDeviceInfo.getDeviceLocale(),
+          deviceName: RNDeviceInfo.getDeviceName(),
+          firstInstallTime: RNDeviceInfo.getFirstInstallTime(),
+          fontScale: RNDeviceInfo.getFontScale(),
+          freeDiskStorage: RNDeviceInfo.getFreeDiskStorage(),
+          ipAddress: RNDeviceInfo.getIPAddress(),
+          installReferrer: RNDeviceInfo.getInstallReferrer(),
+          instanceID: RNDeviceInfo.getInstanceID(),
+          lastUpdateTime: RNDeviceInfo.getLastUpdateTime(),
+          MACAdress: RNDeviceInfo.getMACAddress(),
+          manufacturer: RNDeviceInfo.getManufacturer(),
+          maxMemory: RNDeviceInfo.getMaxMemory(),
+          model: RNDeviceInfo.getModel(),
+          phoneNumber: RNDeviceInfo.getPhoneNumber(),
+          readableVersion: RNDeviceInfo.getReadableVersion(),
+          serialNumber: RNDeviceInfo.getSerialNumber(),
+          systemName: RNDeviceInfo.getSystemName(),
+          systemVersion: RNDeviceInfo.getSystemVersion(),
+          timezone: RNDeviceInfo.getTimezone(),
+          totalDiskCapacity: RNDeviceInfo.getTotalDiskCapacity(),
+          totalMemory: RNDeviceInfo.getTotalMemory(),
+          uniqueId: RNDeviceInfo.getUniqueID(),
+          userAgent: RNDeviceInfo.getUserAgent(),
+          version: RNDeviceInfo.getVersion(),
+          is24Hour: RNDeviceInfo.is24Hour(),
+          isEmulator: RNDeviceInfo.isEmulator(),
+          isPinOrFingerprintSet: RNDeviceInfo.isPinOrFingerprintSet(),
+          isTablet: RNDeviceInfo.isTablet(),
+        }
+      })
+    })
   }
+
   static postNetworkInfo() {
-    NetworkInfo.NetworkInfo.getIPAddress(ip => {
-      console.log(ip)
-    });
+    // NetworkInfo.NetworkInfo.getIPAddress(ip => {
+    //   console.log(ip)
+    // });
   }
   static postCalendarEvents() {
     RNCalendarEvents.authorizeEventStore()
