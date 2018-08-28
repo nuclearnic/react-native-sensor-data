@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { Button, StyleSheet, Text, View } from 'react-native'
 
-import CallHistory from 'react-native-call-history'
-import RNDeviceInfo from 'react-native-device-info'
-import NetworkInfo from 'react-native-network-info'
-import RNCalendarEvents from 'react-native-calendar-events'
+import t from 'tcomb-form-native'
+const Form = t.form.Form
+// Device Data Libs
+// Potentially unlink CallHistory lib
+// import CallHistory from 'react-native-call-history'
+
+import ApiService from './services/ApiService'
 
 export default class App extends Component {
   state={
-    endpoint: null,
+    apiEndpoint: null,
     callHistory: null,
     location: {
       latitude: null,
@@ -23,27 +26,39 @@ export default class App extends Component {
     }
   };
 
-
+  handleSubmit = () => {
+    ApiService.postDeviceInfo()
+    ApiService.postNetworkInfo()
+    ApiService.postCalendarEvents()
+    ApiService.postGeolocation()
+  }
 
   render() {
     // CallHistory.list(
     //   (history) => {this.setState({callHistory: history})},
     //   (error) => {console.warn(error)}
     // )
-    console.log('Logging stuff')
-    console.log(RNDeviceInfo.getBrand())
-    // console.log(this.state.callHistory)
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        console.log(position)
-      },
-      (error) => this.setState({ error: position.error.message }),
-      { enableHighAccuracy: true, timeout: 20000 },
-    )
     return (
       <View>
-        <Text>Hello World</Text>
+        <Form
+          type={deviceDataSubmit}
+          value={defaultValue}
+          ref={c => this._form = c}
+        />
+        <Button
+          title="Post Data"
+          // color= {COLOR.yellow800}
+          onPress={this.handleSubmit}
+        />
       </View>
     );
   }
+}
+
+const deviceDataSubmit = t.struct({
+  apiEndpoint: t.String,
+})
+
+var defaultValue = {
+  apiEndpoint: 'https://c6c421af.ngrok.io',
 }
