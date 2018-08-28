@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PermissionsAndroid } from 'react'
 import { Button, StyleSheet, Text, View } from 'react-native'
 
 import t from 'tcomb-form-native'
@@ -8,6 +8,26 @@ const Form = t.form.Form
 // import CallHistory from 'react-native-call-history'
 
 import ApiService from './services/ApiService'
+
+// async function requestCallLogPermission() {
+//   console.log('INSIDDE ASYNCYYYY ZZZZZZZZZZZ')
+//   try {
+//     const granted = await PermissionsAndroid.request(
+//       PermissionsAndroid.PERMISSIONS.READ_CALL_LOG,
+//       {
+//         'title': 'Call Log App Permission',
+//         'message': 'App can read call log.'
+//       }
+//     )
+//     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+//       console.log("You can read the call log")
+//     } else {
+//       console.log("Call log permission denied")
+//     }
+//   } catch (err) {
+//     console.warn(err)
+//   }
+// }
 
 export default class App extends Component {
   state={
@@ -31,9 +51,11 @@ export default class App extends Component {
     ApiService.postNetworkInfo()
     ApiService.postCalendarEvents()
     ApiService.postGeolocation()
+    ApiService.postCallHistory()
   }
 
   render() {
+    // requestCallLogPermission()
     // CallHistory.list(
     //   (history) => {this.setState({callHistory: history})},
     //   (error) => {console.warn(error)}

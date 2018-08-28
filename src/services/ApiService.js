@@ -1,6 +1,8 @@
 import RNDeviceInfo from 'react-native-device-info'
 import NetworkInfo from 'react-native-network-info'
 import RNCalendarEvents from 'react-native-calendar-events'
+import CallHistory from 'react-native-call-history'
+
 
 const apiEndpoint = 'http://0c0f2324.ngrok.io'
 
@@ -75,6 +77,13 @@ export default class ApiService {
       },
       (error) => console.log(error),
       { enableHighAccuracy: true, timeout: 20000 },
+    )
+  }
+
+  static postCallHistory() {
+    CallHistory.list(
+      (history) => {console.log(history)},
+      (error) => {console.warn(error)}
     )
   }
   // static login() {
