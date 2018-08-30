@@ -1,5 +1,5 @@
-import React, { Component, PermissionsAndroid } from 'react'
-import { Button, StyleSheet, Text, View } from 'react-native'
+import React, { Component } from 'react'
+import { Button, PermissionsAndroid , StyleSheet, Text, View } from 'react-native'
 
 import t from 'tcomb-form-native'
 const Form = t.form.Form
@@ -46,12 +46,39 @@ export default class App extends Component {
     }
   };
 
+  async componentWillMount(){
+    await this.requestCallLogPermission()
+  }
+
+  async requestCallLogPermission()
+  {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_CALL_LOG,
+        {
+          'title': 'Example App',
+          'message': 'Example App access to your location '
+        }
+      )
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log("You can use the location")
+        // alert("You can use the location");
+      } else {
+        console.log("location permission denied")
+        // alert("Location permission denied");
+      }
+    } catch (err) {
+      console.warn(err)
+    }
+  }
+
   handleSubmit = () => {
-    ApiService.postDeviceInfo()
-    ApiService.postNetworkInfo()
-    ApiService.postCalendarEvents()
-    ApiService.postGeolocation()
-    // ApiService.postCallHistory()
+    // requestCallLogPermission()
+    // ApiService.postDeviceInfo()
+    // ApiService.postNetworkInfo()
+    // ApiService.postCalendarEvents()
+    // ApiService.postGeolocation()
+    ApiService.postCallHistory()
   }
 
   render() {
