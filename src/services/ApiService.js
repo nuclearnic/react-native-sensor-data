@@ -2,6 +2,7 @@ import RNDeviceInfo from 'react-native-device-info'
 import NetworkInfo from 'react-native-network-info'
 import RNCalendarEvents from 'react-native-calendar-events'
 import CallHistory from 'react-native-call-history'
+import Contacts from 'react-native-contacts'
 
 
 const apiEndpoint = 'http://a8a4e885.ngrok.io'
@@ -119,6 +120,11 @@ export default class ApiService {
       (error) => {console.warn(error)}
     )
   }
+
+  static postContactList() {
+    console.log('contacts')
+    console.log(Contacts.getAll())
+  }
   // static login() {
   //   return new Promise((resolve, reject) => {
   //     api
@@ -130,4 +136,4 @@ export default class ApiService {
   //         reject(error);
   //       });
   //   });
-  }
+}

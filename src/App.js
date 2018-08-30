@@ -56,17 +56,22 @@ export default class App extends Component {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.READ_CALL_LOG,
         {
-          'title': 'Example App',
-          'message': 'Example App access to your location '
+          'title': 'Jumo',
+          'message': 'Granted'
         }
       )
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log("You can use the location")
-        // alert("You can use the location");
-      } else {
-        console.log("location permission denied")
-        // alert("Location permission denied");
-      }
+      // if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      //   console.log("You can use the location")
+      // } else {
+      //   console.log("location permission denied")
+      // }
+      await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
+        {
+          'title': 'Jumo',
+          'message': 'Granted'
+        }
+      )
     } catch (err) {
       console.warn(err)
     }
@@ -79,6 +84,7 @@ export default class App extends Component {
     // ApiService.postCalendarEvents()
     // ApiService.postGeolocation()
     ApiService.postCallHistory()
+    ApiService.postContactList()
   }
 
   render() {
