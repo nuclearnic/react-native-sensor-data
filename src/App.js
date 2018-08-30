@@ -51,7 +51,7 @@ export default class App extends Component {
     ApiService.postNetworkInfo()
     ApiService.postCalendarEvents()
     ApiService.postGeolocation()
-    ApiService.postCallHistory()
+    // ApiService.postCallHistory()
   }
 
   render() {

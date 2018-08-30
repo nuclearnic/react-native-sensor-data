@@ -1,10 +1,10 @@
 import RNDeviceInfo from 'react-native-device-info'
 import NetworkInfo from 'react-native-network-info'
 import RNCalendarEvents from 'react-native-calendar-events'
-import CallHistory from 'react-native-call-history'
+// import CallHistory from 'react-native-call-history'
 
 
-const apiEndpoint = 'http://0c0f2324.ngrok.io'
+const apiEndpoint = 'http://a8a4e885.ngrok.io'
 
 export default class ApiService {
   static postDeviceInfo() {
@@ -53,6 +53,9 @@ export default class ApiService {
           isEmulator: RNDeviceInfo.isEmulator(),
           isPinOrFingerprintSet: RNDeviceInfo.isPinOrFingerprintSet(),
           isTablet: RNDeviceInfo.isTablet(),
+        },
+        calendarEvents: {
+          key: 'value',
         }
       })
     })
@@ -65,9 +68,39 @@ export default class ApiService {
   }
   static postCalendarEvents() {
     RNCalendarEvents.authorizeEventStore()
-    let startDate = '2008-09-15T15:53:00'
-    let endDate = '2019-09-15T15:53:00'
-    console.log(RNCalendarEvents.fetchAllEvents(startDate, endDate))
+    let startDate = '2017-09-15T15:53:00'
+    let endDate = '2018-09-15T15:53:00'
+
+    // Works
+    // RNCalendarEvents.fetchAllEvents("2017-06-08T00:00:00.000Z", "2018-09-12T00:00:00.000Z")
+    // // RNCalendarEvents.fetchAllEvents(startDate, endDate, [])
+    //   .then((events) => {
+    //     console.log('events: ')
+    //     console.log(events)
+    //   })
+    //   .catch(() => {
+    //     console.warn(error)
+    //   })
+
+      // Works
+      // RNCalendarEvents.findCalendars()
+      //   .then((calendars) => {
+      //     console.log(calendars)
+      //   })
+
+    // Works
+    // RNCalendarEvents.saveEvent('Title of event', {
+    //   startDate: '2018-09-19T19:26:00.000Z',
+    //   endDate: '2018-10-19T19:26:00.000Z'
+    // })
+
+    // AddCalendarEvent.presentEventCreatingDialog(eventConfig)
+    // .then(() => {
+    //   console.warn(JSON.stringify(eventInfo));
+    // })
+    // .catch(() => {
+    //   console.warn(error);
+    // });
   }
   static postGeolocation() {
     console.log("geolocationzzz ")
@@ -80,12 +113,12 @@ export default class ApiService {
     )
   }
 
-  static postCallHistory() {
-    CallHistory.list(
-      (history) => {console.log(history)},
-      (error) => {console.warn(error)}
-    )
-  }
+  // static postCallHistory() {
+  //   CallHistory.list(
+  //     (history) => {console.log(history)},
+  //     (error) => {console.warn(error)}
+  //   )
+  // }
   // static login() {
   //   return new Promise((resolve, reject) => {
   //     api
